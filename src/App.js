@@ -42,6 +42,8 @@ import ProductReviews from "./component/Admin/ProductReviews";
 function App() {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const state = useSelector(state => state)
+  console.log("current state", state)
   const [stripeApiKey, setStripeApiKey] = useState("");
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey");

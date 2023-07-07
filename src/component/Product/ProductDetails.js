@@ -21,8 +21,10 @@ import {
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const ProductDetails = ({ match }) => {
+    const history = useHistory()
     const dispatch = useDispatch();
     const alert = useAlert();
 
@@ -33,7 +35,7 @@ const ProductDetails = ({ match }) => {
     const { success, error: reviewError } = useSelector(
         (state) => state.newReview
     );
-
+    const user = useSelector(state => state.user.user)
     const options = {
         size: "large",
         value: product.ratings,
@@ -61,6 +63,10 @@ const ProductDetails = ({ match }) => {
     };
 
     const addToCartHandler = () => {
+        if (!user) {
+            history.push('/login')
+            return
+        }
         dispatch(addItemsToCart(match.params.id, quantity));
         alert.success("Đã thêm vào giỏ hàng");
     };
