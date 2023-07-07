@@ -41,8 +41,13 @@ import UpdateUser from "./component/Admin/UpdateUser";
 import ProductReviews from "./component/Admin/ProductReviews";
 import ScrollToTop from './hooks/ScrollToTop';
 import CategoryList from './component/Admin/CategoryList';
+import logo from "../src/image/robot.svg"
+import Popup from 'reactjs-popup';
+import ChatGPT from './component/Home/ChatGPT';
+
 function App() {
   const dispatch = useDispatch();
+  const [isAIOpen, setIsAIOpen] = useState(false)
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const state = useSelector(state => state)
   console.log("current state", state)
@@ -67,6 +72,13 @@ function App() {
       <ScrollToTop />
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
+      <button className="button" onClick={() => setIsAIOpen(!isAIOpen)}><img
+        className="speedDialIcon"
+        src={logo}
+        alt="CHAT"
+      /></button>
+      <ChatGPT visible={isAIOpen} />
+
       <Route exact path="/" component={Home} />
       <Route exact path="/product/:id" component={ProductDetails} />
       <Route exact path="/products" component={Products} />
@@ -80,11 +92,13 @@ function App() {
       <Route exact path="/login" component={LoginSignUp} />
       <Route exact path="/cart" component={Cart} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
-      {stripeApiKey && (
-        <Elements stripe={loadStripe(stripeApiKey)}>
-          <ProtectedRoute exact path="/process/payment" component={Payment} />
-        </Elements>
-      )}
+      {
+        stripeApiKey && (
+          <Elements stripe={loadStripe(stripeApiKey)}>
+            <ProtectedRoute exact path="/process/payment" component={Payment} />
+          </Elements>
+        )
+      }
       <ProtectedRoute exact path="/success" component={OrderSuccess} />
       <ProtectedRoute exact path="/orders" component={MyOrders} />
       <Switch>
@@ -104,7 +118,7 @@ function App() {
       <ProtectedRoute isAdmin={true} exact path="/admin/reviews" component={ProductReviews} />
 
       <Footer />
-    </Router>
+    </Router >
   );
 }
 

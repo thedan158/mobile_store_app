@@ -4,6 +4,12 @@
     top: 3vmax;
 }
 
+.speedDialChat {
+    position: fixed;
+    right: 6vmax;
+    bottom: 6vmax;
+}
+
 .speedDialIcon {
     width: 56px;
     height: 56px;
