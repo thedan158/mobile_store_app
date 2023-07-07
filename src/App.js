@@ -39,6 +39,7 @@ import Process from "./component/Admin/ProcessOrder";
 import UsersList from "./component/Admin/UsersList";
 import UpdateUser from "./component/Admin/UpdateUser";
 import ProductReviews from "./component/Admin/ProductReviews";
+import ScrollToTop from './hooks/ScrollToTop';
 function App() {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -62,6 +63,7 @@ function App() {
   }, [dispatch]);
   return (
     <Router>
+      <ScrollToTop />
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
       <Route exact path="/" component={Home} />
