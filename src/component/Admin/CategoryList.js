@@ -87,7 +87,7 @@ const CategoryList = ({ history }) => {
                         className="productListTable"
                         autoHeight
                     />
-                    <Popup modal trigger={<button style={{ maxWidth: 300 }} className="button">Thêm hãng</button>
+                    <Popup modal trigger={<button style={{ maxWidth: 300 }} className="button" onClick={() => { }}>Thêm hãng</button>
                     }>
                         <div className="modal">
                             <input
@@ -98,7 +98,7 @@ const CategoryList = ({ history }) => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                         
+                            <button className="button" onClick={() => dispatch(createCategory({ name: name }))}>Thêm hãng</button>
                         </div>
                     </Popup>
 
