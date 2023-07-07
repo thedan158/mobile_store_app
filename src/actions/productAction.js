@@ -29,6 +29,11 @@ import {
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_FAIL,
     CLEAR_ERRORS,
+    ADMIN_CATEGORY_REQUEST,
+    ADMIN_CATEGORY_SUCCESS,
+    ADMIN_CATEGORY_FAIL,
+    NEW_CATEGORY_REQUEST,
+    NEW_CATEGORY_SUCCESS,
 } from "../constants/productConstants";
 
 export const getProduct = (keyword = "", currentPage = 1, price = [0, 25000], category) => async (dispatch) => {
@@ -84,6 +89,42 @@ export const getAdminProduct = () => async (dispatch) => {
             type: ADMIN_PRODUCT_FAIL,
             payload: error.response.data.message,
         });
+    }
+};
+export const getAdminCategory = () => async (dispatch) => {
+    try {
+        dispatch({ type: ADMIN_CATEGORY_REQUEST });
+
+        const { data } = await axios.get("/api/v1/admin/categories");
+
+        dispatch({
+            type: ADMIN_CATEGORY_SUCCESS,
+            payload: data.category,
+        });
+    } catch (error) {
+        console.log(error)
+    }
+};
+export const createCategory = (categoryData) => async (dispatch) => {
+    try {
+        dispatch({ type: NEW_CATEGORY_REQUEST });
+
+        const config = {
+            headers: { "Content-Type": "application/json" },
+        };
+
+        const { data } = await axios.post(
+            `/api/v1/admin/category/new`,
+            categoryData,
+            config
+        );
+
+        dispatch({
+            type: NEW_CATEGORY_SUCCESS,
+            payload: data.categories,
+        });
+    } catch (error) {
+        console.log(error)
     }
 };
 export const createProduct = (productData) => async (dispatch) => {

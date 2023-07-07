@@ -34,7 +34,10 @@ const Sidebar = () => {
                         </Link>
 
                         <Link to="/admin/product">
-                            <TreeItem nodeId="3" label="Thêm" icon={<AddIcon />} />
+                            <TreeItem nodeId="3" label="Thêm sản phẩm" icon={<AddIcon />} />
+                        </Link>
+                        <Link to="/admin/categories">
+                            <TreeItem nodeId="4" label="Quản lý hãng" icon={<AddIcon />} />
                         </Link>
                     </TreeItem>
                 </TreeView>

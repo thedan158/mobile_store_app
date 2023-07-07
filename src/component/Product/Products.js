@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 const categories = [
+    "Toàn bộ",
     "Apple",
     "Samsung",
     "Xiaomi",
@@ -21,27 +22,42 @@ const categories = [
 
 const Products = ({ match }) => {
     const dispatch = useDispatch();
+    const { products, loading, resultPerPage, productsCount, filteredProductsCount, error } = useSelector((state) => state.products);
+
     const alert = useAlert();
     const [currentPage, setCurrentPage] = useState(1);
     const [price, setPrice] = useState([0, 25000]);
     const [category, setCategory] = useState("");
-
+    const [currentProducts, setCurrentProducts] = useState(products)
     const setCurrentPageNo = (e) => {
         setCurrentPage(e);
     };
     const priceHandler = (event, newPrice) => {
         setPrice(newPrice);
     };
-    const { products, loading, resultPerPage, productsCount, filteredProductsCount, error } = useSelector((state) => state.products);
-    const keyword = match.params.keyword;
+    const filterProduct = (products, priceRange, selectedCategory) => {
+        if (selectedCategory === categories[0]) {
+            setCurrentProducts(products)
+            return
+        }
+        const newProducts = products.filter(item => {
+            const { price, category } = item;
+            return price >= priceRange[0] && price <= priceRange[1] && category === selectedCategory;
+        });
+        setCurrentProducts(newProducts)
+    }
     useEffect(() => {
         if (error) {
             alert.error(error);
         }
+        filterProduct(products, price, category)
+    }, [currentPage, price, category, alert, error]);
+    useEffect(() => {
         dispatch(getProduct(), clearErrors());
-        dispatch(getProduct(keyword, currentPage, price, category));
-    }, [dispatch, keyword, currentPage, price, category, alert, error]);
-
+    }, [])
+    useEffect(() => {
+        setCurrentProducts(products)
+    }, [products])
     let count = filteredProductsCount;
     return (
         <Fragment>{loading ? <Loader /> :
@@ -49,8 +65,8 @@ const Products = ({ match }) => {
                 <MetaData title="Sản Phẩm-MOBILE STORE" />
                 <h2 className="productsHeading">Sản phẩm</h2>
                 <div className="products">
-                    {products &&
-                        products.map((product) => (
+                    {currentProducts &&
+                        currentProducts.map((product) => (
                             <ProductCard key={product._id} product={product} />
                         ))}
                 </div>

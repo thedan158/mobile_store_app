@@ -23,7 +23,7 @@ const ConfirmOrder = ({ history }) => {
 
     const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
-    const proceedToPayment = () => {
+    const proceedToPayment = (type) => {
         const data = {
             subtotal,
             shippingCharges,
@@ -32,8 +32,12 @@ const ConfirmOrder = ({ history }) => {
         };
 
         sessionStorage.setItem("orderInfo", JSON.stringify(data));
+        if (type === "VISA") {
+            history.push("/process/payment");
+        } else {
+            history.push("/success");
+        }
 
-        history.push("/process/payment");
     };
 
     return (
@@ -104,7 +108,8 @@ const ConfirmOrder = ({ history }) => {
                             <span>{totalPrice}$</span>
                         </div>
 
-                        <button onClick={proceedToPayment}>Chấp nhận thanh toán</button>
+                        <button style={{ marginBottom: 10, backgroundColor: '#78C1F3' }} onClick={() => proceedToPayment("VISA")}>Thanh toán bằng VISA & Debit Card</button>
+                        <button onClick={() => proceedToPayment("COD")}>Thanh toán COD</button>
                     </div>
                 </div>
             </div>

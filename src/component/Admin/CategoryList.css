@@ -1,0 +1,59 @@
+.button {
+  background-color: rgba(0, 0, 0, 0.616);
+  color: white;
+  width: 100%;
+  padding: 1vmax;
+  border: none;
+  margin: auto;
+  cursor: pointer;
+  transition: 0.5s;
+  font: 400 1vmax "Roboto";
+}
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.modal {
+  font-size: 12px;
+}
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  margin: auto;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
+.input {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 0.9vmax cursive;
+  outline: none;
+}

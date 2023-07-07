@@ -40,6 +40,7 @@ import UsersList from "./component/Admin/UsersList";
 import UpdateUser from "./component/Admin/UpdateUser";
 import ProductReviews from "./component/Admin/ProductReviews";
 import ScrollToTop from './hooks/ScrollToTop';
+import CategoryList from './component/Admin/CategoryList';
 function App() {
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -96,6 +97,7 @@ function App() {
       <ProtectedRoute isAdmin={true} exact path="/admin/product/:id" component={UpdateProduct} />
       <ProtectedRoute isAdmin={true} exact path="/admin/orders" component={OrderList} />
       <ProtectedRoute isAdmin={true} exact path="/admin/order/:id" component={Process} />
+      <ProtectedRoute isAdmin={true} exact path="/admin/categories" component={CategoryList} />
 
       <ProtectedRoute isAdmin={true} exact path="/admin/users" component={UsersList} />
       <ProtectedRoute isAdmin={true} exact path="/admin/user/:id" component={UpdateUser} />
